@@ -8,25 +8,39 @@
 #include <string>
 #include <stdio.h>
 #include <cstdlib>
+#include "LexAnalyse.h"
 
 using namespace std;
 
-enum Type {
-    Identifier,
-    Number,
-    MainKey, IfKey, WhileKey, ForKey, ScanfKey, PrintfKey, ElseKey, IntKey,
-    LeftParentheses, RightParentheses, LeftBrace, RightBrace, Comma, Semicolon, Quotation,
-    Equal, Unequal, assignment, LessThan, GreaterThan, NoLessThan, NoGreaterThan, Add, Subtract, Multiply, divide
-};
-
-struct Node {
-    Type type;
-    string value;
-};
-
 class SyntaxAnalyse {
-    void ParseProgram();
+private:
     void MatchToken(Type expect);
+    void SyntaxError();
+    void ParseProgram();
+    void ParseDeclarationSequence();
+    void ParseDeclarationStatement();
+    void ParseIdentifierTable();
+    void ParseIdentifierTableS();
+    void ParseStatementSequence();
+    void ParseSentence();
+    void ParseIfSentence();
+    void ParseElseSentence();
+    void ParseWhileSentence();
+    void ParseForSentence();
+    void ParseCompoundStatement();
+    void ParseAssignmentStatement();
+    void ParseExpression();
+    void ParseExpressionS();
+    void ParseRel();
+    void ParseOpt();
+    void ParseRelationOperator();
+    void ParseArithmeticExpression();
+    void ParseOparit();
+    void ParseTerm();
+    void ParseOpterm();
+    void ParseFactor();
+public:
+//    void Parse(Node node[]);
 };
 
 

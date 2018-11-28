@@ -1,76 +1,87 @@
-select(<pro>→<mainkey>(){<des><sts>}) = {main}
+select(<program>→<mainkey>(){<declarative_sequence><statement_sequence>}) = {main}
 
-select(<des>→<ses><des>) = {int}
+select(<declarative_sequence>→<declarative_statement><declarative_sequence>) = {int}
 
-select(<des>→null) = {},if,while,for,scanf,printf,{,letter}
+select(<declarative_sequence>→null) = {},if,while,for,scanf,printf,{,identifier}
 
-select(<ses>→<intkey><idt>;) = {int}
+select(<declarative_statement>→<intkey><identifier_table>;) = {int}
 
-select(<idt>→<id><idts>) = {letter}
+select(<identifier_table>→<identifier><identifier_table_second>) = {identier}
 
-select(<idts>→,<idt>) = {","}
+select(<identifier_table_second>→,<identifier_table>) = {,}
 
-select(<idts> -> null) = {;}
+select(<identifier_table_second> -> null) = {;}
 
-select(<sts>→<sent><sts>) = {if,while,for,scanf,print,{,letter}
+select(<statement_sequence>→<sentence><statement_sequence>) = {if,while,for,scanf,print,{,letter}
 
-select(<sts> → null) = {}}
+select(<statement_sequence> → null) = {}}
 
-select(<sent>→<ifs>) = {if}
+select(<sentence>→<if_sentence>) = {if}
 
-select(<sent>→<whiles>) = {while}
+select(<sentence>→<while_sentence>) = {while}
 
-select(<sent>→<fors>) = {for}
+select(<sentence>→<for_sentence>) = {for}
 
-select(<sent>→<scanfs>) = {scanf}
+select(<sentence>→<scanf_sentence>) = {scanf}
 
-select(<sent>→<printfs>) = {printf}
+select(<sentence>→<printf_sentence>) = {printf}
 
-select(<sent>→<coms>) = {{}
+select(<sentence>→<compound_statement>) = {{}
 
-select(<sent>→<asst>) = {id,unint,(}
+select(<sentence>→<assignment_statement>) = {id,unint,(}
 
-select(<ifs>→<ifkey> (<exp>)<coms><elses>;) = {if}
+select(<if_sentence>→<ifkey> (<expression>)<compound_statement><else_sentence>) = {if}
 
-select(<elses>→<eleskey><coms>) = {else}
+select(<else_sentence>→<eleskey><compound_statement>) = {else}
 
-select(<elses>→null) = {;}
+select(<else_sentence>→null) = {;}
 
-select(<whiles>→<whilekey> (<exp>)<coms>;) = {while}
+select(<while_sentence>→<whilekey> (<expression>)<compound_statement>) = {while}
 
-select(<fors>→<forkey> (<exp>;<exp>;<exp>) <coms>;) = {for}
+select(<for_sentence>→<forkey> (<expression>;<expression>;<expression>) <compound_statement>) = {for}
 
-select(<coms>→{<sts>}) = {{}
+select(<compound_statement>→{<statement_sequence>}) = {{}
 
-select(<asst>→<exp>;) = {id,unint,(}
+select(<assignment_statement>→<expression>;) = {id,unint,(}
 
-select(<exp>→<id><exps>) = {id}
+select(<expression>→<identifier><expression_s>) = {id}
 
-select(<exps>→=<arit>) = {=}
+select(<expression_s>→=<arithmetic_expression>) = {=}
 
-select(<exps>→<rel>) = {>,<,=,!,';',)}
+select(<expression_s>→<rel>) = {>,<,>=,<=,==,!=,;,)}
 
-select(<rel>→<relop><arit>) = {>,<,>=,<=,==,!=}
+select(<rel>→<opt><relational_operator><arithmetic_expression>) = {+,-,*,/,>,<,>=,<=,==,!=}
 
-select(<rel>→null)={';',)}
+select(<rel>→null)={;,)}
 
-select(<relop>→><eq>)={>}
+select(<opt>→+<arithmetic_expression>) = {+}
 
-select(<relop>→<<eq>)={<}
+select(<opt>→-<arithmetic_expression>) = {-}
 
-select(<relop>→=<eq>)={=}
+select(<opt>→*<term>) = {*}
 
-select(<relop>→!<eq>)={!}
+select(<opt>→/<term>) = {/}
+
+select(<opt>→null) = {<,>,<=,>=,!=,==};
+-------------------------------------------------
+
+select(<relational_operator>→><eq>)={>}
+
+select(<relational_operator>→<<eq>)={<}
+
+select(<relational_operator>→=<eq>)={=}
+
+select(<relational_operator>→!<eq>)={!}
 
 select(<eq>→=)={=}
 
 select(<eq>→null)={id,unint,(}
 
-select(<arit>→<term><oparit>)={id,unint,(}
+select(<arithmetic_expression>→<term><oparit>)={id,unint,(}
 
-select(<oparit>→+<arit>)={+}
+select(<oparit>→+<arithmetic_expression>)={+}
 
-select(<oparit>→-<arit>)={-}
+select(<oparit>→-<arithmetic_expression>)={-}
 
 select(<oparit>→null)={<,>,=,!,},)}
 
@@ -82,49 +93,30 @@ select(<opterm>→/<term>) = {/}
 
 select(<opterm>→null) = {+,-,<,>,=,!,},)}
 
-select(<factor>→<id>) = {id}
+select(<factor>→<identifier>) = {id}
 
 select(<factor>→<unint>)={unint}
 
-select(<factor>→(<arit>)) = {(}
+select(<factor>→(<arithmetic_expression>)) = {(}
 
-select(<mainkey>→main
-)={main}
-
-select(<ifkey>→if)={if}
-
-select(<eleskey>→else)={else}
-
-select(<whilekey>→while) = {while}
-
-select(<forkey>→for) = {for}
-
-select(<intkey>→int) = {int}
-
-select(<scanfs>→<scanfkey>("<scan>);)={scanf}
-
-select(<scanfkey>→scanf)={scanf}
+select(<scanf_sentence>→<scanfkey>("<scan>);)={scanf}
 
 select(<scans>→ <scans>)={" "}
 
-select(<scan>→%d<scans>&<id>)={%}
+select(<scan>→%d<scans>&<identifier>)={%}
 
-select(<scans>→%d<scans>&<id>,)={%}
+select(<scans>→%d<scans>&<identifier>,)={%}
 
 select(<scans>→")={"}
 
-select(<printfs>→<printfkey>("<prints>);)={printf}
-
-select(<printfkey>→printf)={printf}
+select(<printf_sentence>→<printfkey>("<prints>);)={printf}
 
 select(<prints>→<char><prints>)={任意字符}
 
-select(<prints>→%d<prin>&<id>)={%}
+select(<prints>→%d<prin>&<identifier>)={%}
 
 select(<prints>→")={"}
 
-select(<prin>→%d<prin>&<id>,)={%}
+select(<prin>→%d<prin>&<identifier>,)={%}
 
 select(<prin>→")={"}
-
-select(<char>→任意字符)={任意字符}

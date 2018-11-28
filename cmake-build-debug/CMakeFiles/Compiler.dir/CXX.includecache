@@ -6,17 +6,23 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.cpp
-LexAnalyse.h
 C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
+string
+-
 
-C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.cpp
+SyntaxAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.h
 
 C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.h
 string
 -
 stdio.h
 -
+cstdlib
+-
+LexAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
 
 C:/Users/IceCapriccio/CLionProjects/Compiler/main.cpp
 LexAnalyse.h

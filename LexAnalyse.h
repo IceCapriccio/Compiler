@@ -7,13 +7,20 @@
 
 //TODO 语法分析体现多态 https://www.cnblogs.com/gaofei-1/p/6435442.html
 
-//enum Type {
-//    Identifier,
-//    Number,
-//    MainKey, IfKey, WhileKey, ForKey, ScanfKey, PrintfKey, ElseKey, IntKey,
-//    LeftParentheses, RightParentheses, LeftBrace, RightBrace, Comma, Semicolon, Quotation,
-//    Equal, Unequal, assignment, LessThan, GreaterThan, NoLessThan, NoGreaterThan, Add, Subtract, Multiply, divide
-//};
+#include <string>
+
+enum Type {
+    Identifier,
+    Number,
+    MainKey, IfKey, WhileKey, ForKey, ScanfKey, PrintfKey, ElseKey, IntKey,
+    LeftParentheses, RightParentheses, LeftBrace, RightBrace, Comma, Semicolon, Quotation,
+    Equal, Unequal, Assignment, LessThan, GreaterThan, NoLessThan, NoGreaterThan, Add, Subtract, Multiply, Divide
+};
+
+struct Node {
+    Type type;
+    std::string value;
+};
 
 
 class LexAnalyse {

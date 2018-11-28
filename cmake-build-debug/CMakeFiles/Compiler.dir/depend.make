@@ -4,6 +4,7 @@
 CMakeFiles/Compiler.dir/LexAnalyse.cpp.obj: ../LexAnalyse.cpp
 CMakeFiles/Compiler.dir/LexAnalyse.cpp.obj: ../LexAnalyse.h
 
+CMakeFiles/Compiler.dir/SyntaxAnalyse.cpp.obj: ../LexAnalyse.h
 CMakeFiles/Compiler.dir/SyntaxAnalyse.cpp.obj: ../SyntaxAnalyse.cpp
 CMakeFiles/Compiler.dir/SyntaxAnalyse.cpp.obj: ../SyntaxAnalyse.h
 
