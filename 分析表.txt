@@ -1,0 +1,130 @@
+select(<pro>→<mainkey>(){<des><sts>}) = {main}
+
+select(<des>→<ses><des>) = {int}
+
+select(<des>→null) = {},if,while,for,scanf,printf,{,letter}
+
+select(<ses>→<intkey><idt>;) = {int}
+
+select(<idt>→<id><idts>) = {letter}
+
+select(<idts>→,<idt>) = {","}
+
+select(<idts> -> null) = {;}
+
+select(<sts>→<sent><sts>) = {if,while,for,scanf,print,{,letter}
+
+select(<sts> → null) = {}}
+
+select(<sent>→<ifs>) = {if}
+
+select(<sent>→<whiles>) = {while}
+
+select(<sent>→<fors>) = {for}
+
+select(<sent>→<scanfs>) = {scanf}
+
+select(<sent>→<printfs>) = {printf}
+
+select(<sent>→<coms>) = {{}
+
+select(<sent>→<asst>) = {id,unint,(}
+
+select(<ifs>→<ifkey> (<exp>)<coms><elses>;) = {if}
+
+select(<elses>→<eleskey><coms>) = {else}
+
+select(<elses>→null) = {;}
+
+select(<whiles>→<whilekey> (<exp>)<coms>;) = {while}
+
+select(<fors>→<forkey> (<exp>;<exp>;<exp>) <coms>;) = {for}
+
+select(<coms>→{<sts>}) = {{}
+
+select(<asst>→<exp>;) = {id,unint,(}
+
+select(<exp>→<id><exps>) = {id}
+
+select(<exps>→=<arit>) = {=}
+
+select(<exps>→<rel>) = {>,<,=,!,';',)}
+
+select(<rel>→<relop><arit>) = {>,<,>=,<=,==,!=}
+
+select(<rel>→null)={';',)}
+
+select(<relop>→><eq>)={>}
+
+select(<relop>→<<eq>)={<}
+
+select(<relop>→=<eq>)={=}
+
+select(<relop>→!<eq>)={!}
+
+select(<eq>→=)={=}
+
+select(<eq>→null)={id,unint,(}
+
+select(<arit>→<term><oparit>)={id,unint,(}
+
+select(<oparit>→+<arit>)={+}
+
+select(<oparit>→-<arit>)={-}
+
+select(<oparit>→null)={<,>,=,!,},)}
+
+select(<term>→<factor><opterm>)={id,unint,(}
+
+select(<opterm>→*<term>) = {*}
+
+select(<opterm>→/<term>) = {/}
+
+select(<opterm>→null) = {+,-,<,>,=,!,},)}
+
+select(<factor>→<id>) = {id}
+
+select(<factor>→<unint>)={unint}
+
+select(<factor>→(<arit>)) = {(}
+
+select(<mainkey>→main
+)={main}
+
+select(<ifkey>→if)={if}
+
+select(<eleskey>→else)={else}
+
+select(<whilekey>→while) = {while}
+
+select(<forkey>→for) = {for}
+
+select(<intkey>→int) = {int}
+
+select(<scanfs>→<scanfkey>("<scan>);)={scanf}
+
+select(<scanfkey>→scanf)={scanf}
+
+select(<scans>→ <scans>)={" "}
+
+select(<scan>→%d<scans>&<id>)={%}
+
+select(<scans>→%d<scans>&<id>,)={%}
+
+select(<scans>→")={"}
+
+select(<printfs>→<printfkey>("<prints>);)={printf}
+
+select(<printfkey>→printf)={printf}
+
+select(<prints>→<char><prints>)={任意字符}
+
+select(<prints>→%d<prin>&<id>)={%}
+
+select(<prints>→")={"}
+
+select(<prin>→%d<prin>&<id>,)={%}
+
+select(<prin>→")={"}
+
+select(<char>→任意字符)={任意字符}

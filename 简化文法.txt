@@ -1,0 +1,83 @@
+1. <pro>→<mainkey>(){<des><sts>}
+
+2. <des>→<ses><des>|<null>
+
+3. <ses>→<intkey><idt>;
+
+4. (1)<idt>→<id><idts>
+
+ (2)<idts>→,<idt>|null
+
+5. <sts>→<sent><sts>|null
+
+6. <sent>→<ifs>|<whiles>|<fors>|<scanfs>|<printfs>
+
+|<coms>|<asst>
+
+7.(1) <ifs>→<ifkey> (<exp>)<coms><elses>;
+
+(2)<elses>→<eleskey><coms>|null
+
+8. <whiles>→<whilekey> (<exp>)<coms>;
+
+9. <fors>→<forkey> (<exp>;<exp>;<exp>) <coms>;
+
+10. <coms>→{<sts>}
+
+11. <asst>→<exp>;
+
+12. (1)<exp>→<id><exps>
+	(2)<exps>→=<arit>|<rel>
+
+13. <rel>→<relop><arit>|null
+
+14. (1)<relop>→><eq>|<<eq>|=<eq>|!<eq>
+	(2)<eq>→=|null
+
+15. (1)<arit>→<term><oparit>
+    (2)<oparit>→+<arit>|-<arit>|null
+
+16. (1)<term>→<factor><opterm>
+	(2)<opterm>→*<term>|/<term>|null
+
+17. <factor>→<id>|<unint>|(<arit>)
+
+18.(1)<id>→<idh><idta>
+(2)<idh>→<letter>
+(3)<idta>→<letter><idta>|<num><idta>|<null>
+
+19. <unint>→<num><unint>|<null>
+
+20. <letter>→a|b|…|z|A|B|…|Z
+
+21. <num>→0|1|2|3|4|5|6|7|8|9
+
+22. <mainkey>→main
+
+23. <ifkey>→if
+
+24. <eleskey>→else
+
+25. <whilekey>→while
+
+26. <forkey>→for
+
+27. <intkey>→int
+
+28. <scanfs>→<scanfkey>("<scan>);
+
+29. <scanfkey>→scanf
+
+30. <scan>→%d<scans>&<id>
+
+31. <scans>→%d<scans>&<id>,|"| <scans>
+
+32. <printfs>→<printfkey>("<prints>);
+
+33. <printfkey>→printf
+
+34. <prints>→<char><prints>|%d<prin>&<id>|"
+
+35. <prin>→%d<prin>&<id>,|"
+
+36. <char>→任意字符

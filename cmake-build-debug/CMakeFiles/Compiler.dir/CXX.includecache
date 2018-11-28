@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.cpp
+LexAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
+
+C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
+
+C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.h
+string
+-
+stdio.h
+-
+
+C:/Users/IceCapriccio/CLionProjects/Compiler/main.cpp
+LexAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
+SyntaxAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.h
+
