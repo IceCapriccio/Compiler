@@ -86,6 +86,12 @@
 		<Unit filename="C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="C:/Users/IceCapriccio/CLionProjects/Compiler/SemanticAnalyse.cpp">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/IceCapriccio/CLionProjects/Compiler/SemanticAnalyse.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.cpp">
 			<Option target="Compiler"/>
 		</Unit>

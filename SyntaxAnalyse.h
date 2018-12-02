@@ -14,6 +14,9 @@ using namespace std;
 
 class SyntaxAnalyse {
 private:
+    Node *lex;
+    int cur;
+
     void MatchToken(Type expect);
     void SyntaxError();
     void ParseProgram();
@@ -39,8 +42,15 @@ private:
     void ParseTerm();
     void ParseOpterm();
     void ParseFactor();
+    void ParseScanfSentence();
+    void ParseScan();
+    void ParseScans();
+    void ParsePrintfSentence();
+    void ParsePrints();
+    void ParsePrin();
+
 public:
-//    void Parse(Node node[]);
+    void Parse(Node node[]);
 };
 
 

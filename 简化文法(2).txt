@@ -29,7 +29,8 @@
 12. (1)<exp>→<id><exps>
 	(2)<exps>→=<arit>|<rel>
 
-13. <rel>→<relop><arit>|null
+13. (1)<rel>→<opt><relop><arit>|null
+	(2)<opt>→+<arit>|-<arit>|*<term>|/<term>|null
 
 14. (1)<relop>→><eq>|<<eq>|=<eq>|!<eq>
 	(2)<eq>→=|null

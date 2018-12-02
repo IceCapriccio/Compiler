@@ -12,7 +12,7 @@ select(<identifier_table_second>→,<identifier_table>) = {,}
 
 select(<identifier_table_second> -> null) = {;}
 
-select(<statement_sequence>→<sentence><statement_sequence>) = {if,while,for,scanf,print,{,letter}
+select(<statement_sequence>→<sentence><statement_sequence>) = {if,while,for,scanf,print,{,number}
 
 select(<statement_sequence> → null) = {}}
 
@@ -28,7 +28,7 @@ select(<sentence>→<printf_sentence>) = {printf}
 
 select(<sentence>→<compound_statement>) = {{}
 
-select(<sentence>→<assignment_statement>) = {id,unint,(}
+select(<sentence>→<assignment_statement>) = {id,number,(}
 
 select(<if_sentence>→<ifkey> (<expression>)<compound_statement><else_sentence>) = {if}
 
@@ -42,7 +42,7 @@ select(<for_sentence>→<forkey> (<expression>;<expression>;<expression>) <compo
 
 select(<compound_statement>→{<statement_sequence>}) = {{}
 
-select(<assignment_statement>→<expression>;) = {id,unint,(}
+select(<assignment_statement>→<expression>;) = {identifier,unint,(}
 
 select(<expression>→<identifier><expression_s>) = {id}
 
@@ -65,17 +65,29 @@ select(<opt>→/<term>) = {/}
 select(<opt>→null) = {<,>,<=,>=,!=,==};
 -------------------------------------------------
 
-select(<relational_operator>→><eq>)={>}
+select(<relational_operator>→>)={>}
 
-select(<relational_operator>→<<eq>)={<}
+select(<relational_operator>→<)={<}
 
-select(<relational_operator>→=<eq>)={=}
+select(<relational_operator>→>=)={>=}
 
-select(<relational_operator>→!<eq>)={!}
+select(<relational_operator>→<=)={<=}
 
-select(<eq>→=)={=}
+select(<relational_operator>→==)={==}
 
-select(<eq>→null)={id,unint,(}
+select(<relational_operator>→!=)={!=}
+
+//select(<relational_operator>→><eq>)={>}
+
+//select(<relational_operator>→<<eq>)={<}
+
+//select(<relational_operator>→=<eq>)={=}
+
+//select(<relational_operator>→!<eq>)={!}
+
+//select(<eq>→=)={=}
+
+//select(<eq>→null)={id,unint,(}
 
 select(<arithmetic_expression>→<term><oparit>)={id,unint,(}
 
@@ -83,7 +95,7 @@ select(<oparit>→+<arithmetic_expression>)={+}
 
 select(<oparit>→-<arithmetic_expression>)={-}
 
-select(<oparit>→null)={<,>,=,!,},)}
+select(<oparit>→null)={<,>,<=,>=,!=,==,),;}
 
 select(<term>→<factor><opterm>)={id,unint,(}
 
@@ -91,17 +103,16 @@ select(<opterm>→*<term>) = {*}
 
 select(<opterm>→/<term>) = {/}
 
-select(<opterm>→null) = {+,-,<,>,=,!,},)}
+select(<opterm>→null) = {+,-,<,>,=,!,;,)}
 
 select(<factor>→<identifier>) = {id}
 
 select(<factor>→<unint>)={unint}
 
 select(<factor>→(<arithmetic_expression>)) = {(}
+------------------------------------
 
 select(<scanf_sentence>→<scanfkey>("<scan>);)={scanf}
-
-select(<scans>→ <scans>)={" "}
 
 select(<scan>→%d<scans>&<identifier>)={%}
 

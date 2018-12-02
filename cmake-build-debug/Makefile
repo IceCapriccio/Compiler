@@ -149,6 +149,33 @@ LexAnalyse.cpp.s:
 	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/LexAnalyse.cpp.s
 .PHONY : LexAnalyse.cpp.s
 
+SemanticAnalyse.obj: SemanticAnalyse.cpp.obj
+
+.PHONY : SemanticAnalyse.obj
+
+# target to build an object file
+SemanticAnalyse.cpp.obj:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/SemanticAnalyse.cpp.obj
+.PHONY : SemanticAnalyse.cpp.obj
+
+SemanticAnalyse.i: SemanticAnalyse.cpp.i
+
+.PHONY : SemanticAnalyse.i
+
+# target to preprocess a source file
+SemanticAnalyse.cpp.i:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/SemanticAnalyse.cpp.i
+.PHONY : SemanticAnalyse.cpp.i
+
+SemanticAnalyse.s: SemanticAnalyse.cpp.s
+
+.PHONY : SemanticAnalyse.s
+
+# target to generate assembly for a file
+SemanticAnalyse.cpp.s:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/SemanticAnalyse.cpp.s
+.PHONY : SemanticAnalyse.cpp.s
+
 SyntaxAnalyse.obj: SyntaxAnalyse.cpp.obj
 
 .PHONY : SyntaxAnalyse.obj
@@ -215,6 +242,9 @@ help:
 	@echo ... LexAnalyse.obj
 	@echo ... LexAnalyse.i
 	@echo ... LexAnalyse.s
+	@echo ... SemanticAnalyse.obj
+	@echo ... SemanticAnalyse.i
+	@echo ... SemanticAnalyse.s
 	@echo ... SyntaxAnalyse.obj
 	@echo ... SyntaxAnalyse.i
 	@echo ... SyntaxAnalyse.s

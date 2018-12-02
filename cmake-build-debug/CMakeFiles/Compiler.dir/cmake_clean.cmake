@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Compiler.dir/main.cpp.obj"
   "CMakeFiles/Compiler.dir/LexAnalyse.cpp.obj"
   "CMakeFiles/Compiler.dir/SyntaxAnalyse.cpp.obj"
+  "CMakeFiles/Compiler.dir/SemanticAnalyse.cpp.obj"
   "Compiler.pdb"
   "Compiler.exe"
   "Compiler.exe.manifest"

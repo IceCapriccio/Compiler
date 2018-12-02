@@ -4,8 +4,6 @@
 
 #include "SyntaxAnalyse.h"
 
-Node lex[100]; // 语法分析传来的结构体数组
-int cur = 0; // 当前分析到哪个单词
 
 // 匹配一个终结符
 void SyntaxAnalyse::MatchToken(Type expect) {
@@ -127,10 +125,10 @@ void SyntaxAnalyse::ParseSentence() {
             ParseForSentence();
             break;
         case ScanfKey:
-//            ParseScanfSentence();
+            ParseScanfSentence();
             break;
         case PrintfKey:
-//            ParsePrintfSentence();
+            ParsePrintfSentence();
             break;
         case LeftBrace:
             ParseCompoundStatement();
@@ -454,6 +452,111 @@ void SyntaxAnalyse::ParseFactor()
         default:
             SyntaxError();
     }
+}
+
+void SyntaxAnalyse::ParseScanfSentence()
+{
+    switch (lex[cur].type)
+    {
+        case ScanfKey:
+            MatchToken(ScanfKey);
+            MatchToken(LeftParentheses);
+            MatchToken(Quotation);
+            ParseScan();
+            MatchToken(RightParentheses);
+            MatchToken(Semicolon);
+            break;
+        default:SyntaxError();
+    }
+}
+
+void SyntaxAnalyse::ParseScan()
+{
+    switch (lex[cur].type)
+    {
+        case Format:
+            MatchToken(Format);
+            ParseScans();
+            MatchToken(Address);
+            MatchToken(Identifier);
+            break;
+        default:SyntaxError();
+    }
+}
+
+void SyntaxAnalyse::ParseScans()
+{
+    switch (lex[cur].type)
+    {
+        case Format:
+            MatchToken(Format);
+            ParseScans();
+            MatchToken(Address);
+            MatchToken(Identifier);
+            break;
+        case Quotation:
+            MatchToken(Quotation);
+            break;
+        default:SyntaxError();
+    }
+}
+
+void SyntaxAnalyse::ParsePrintfSentence()
+{
+    switch (lex[cur].type)
+    {
+        case PrintfKey:
+            MatchToken(PrintfKey);
+            MatchToken(LeftParentheses);
+            MatchToken(Quotation);
+            ParsePrints();
+            MatchToken(RightParentheses);
+            MatchToken(Semicolon);
+            break;
+        default:SyntaxError();
+    }
+}
+
+void SyntaxAnalyse::ParsePrints()
+{
+    switch (lex[cur].type)
+    {
+        case String:
+            MatchToken(String);
+            ParsePrints();
+            break;
+        case Format:
+            MatchToken(Format);
+            ParsePrin();
+            MatchToken(Identifier);
+            break;
+        case Quotation:
+            MatchToken(Quotation);
+            break;
+        default:SyntaxError();
+    }
+}
+
+void SyntaxAnalyse::ParsePrin()
+{
+    switch (lex[cur].type)
+    {
+        case Format:
+            MatchToken(Format);
+            ParsePrin();
+            MatchToken(Identifier);
+            break;
+        case Quotation:
+            MatchToken(Quotation);
+            break;
+        default:SyntaxError();
+    }
+}
+
+void SyntaxAnalyse::Parse(Node *node) {
+    this->lex = node;
+    cur = 0;
+    ParseProgram();
 }
 
 

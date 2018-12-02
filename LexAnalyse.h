@@ -13,8 +13,10 @@ enum Type {
     Identifier,
     Number,
     MainKey, IfKey, WhileKey, ForKey, ScanfKey, PrintfKey, ElseKey, IntKey,
-    LeftParentheses, RightParentheses, LeftBrace, RightBrace, Comma, Semicolon, Quotation,
-    Equal, Unequal, Assignment, LessThan, GreaterThan, NoLessThan, NoGreaterThan, Add, Subtract, Multiply, Divide
+    LeftParentheses, RightParentheses, LeftBrace, RightBrace, Comma, Semicolon, Quotation, // 逗号 分号 引号
+    Equal, Unequal, Assignment, LessThan, GreaterThan, NoLessThan, NoGreaterThan, Add, Subtract, Multiply, Divide,
+    Format,Address,String,
+    None
 };
 
 struct Node {
