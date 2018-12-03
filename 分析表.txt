@@ -34,7 +34,7 @@ select(<if_sentence>→<ifkey> (<expression>)<compound_statement><else_sentence>
 
 select(<else_sentence>→<eleskey><compound_statement>) = {else}
 
-select(<else_sentence>→null) = {;}
+select(<elses>→null) = {},for,while,if,scanf,prinf,{,id}
 
 select(<while_sentence>→<whilekey> (<expression>)<compound_statement>) = {while}
 

@@ -11,32 +11,24 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89de6f1a-e788-4211-8b18-0e3a2299c2a5" name="Default Changelist" comment="1. 实现了所有语法分析子函数，存在 bug&#10;2. 定义了树节点，节点详细信息在 SemanticAnalyse.h 里&#10;3. Type 类型加入 None，表示非终结字符节点（在 AST 中）">
-      <change afterPath="$PROJECT_DIR$/SemanticAnalyse.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SemanticAnalyse.h" afterDir="false" />
+    <list default="true" id="89de6f1a-e788-4211-8b18-0e3a2299c2a5" name="Default Changelist" comment="1. 实现了所有语法分析子函数，存在 bug&#10;2. 定义了树节点，节点详细信息在 SemanticAnalyse.h 里&#10;3. Type 类型加入 None，表示非终结字符节点（在 AST 中）&#10;1. 更新了正确的 Select 集&#10;2. 语法分析部分的 bug 已经改正，在语法分析子函数加上了建树的代码，未测试，存在 bug&#10;3. 在语义分析部分定义了项目表并在语义子函数中加入了插入、删除、检查重复定义、未定义符号的验证函数。&#10;4. 加入了词法分析的代码">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LexAnalyse.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/LexAnalyse.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LexAnalyse.h" beforeDir="false" afterPath="$PROJECT_DIR$/LexAnalyse.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SemanticAnalyse.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/SemanticAnalyse.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SemanticAnalyse.h" beforeDir="false" afterPath="$PROJECT_DIR$/SemanticAnalyse.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SyntaxAnalyse.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/SyntaxAnalyse.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SyntaxAnalyse.h" beforeDir="false" afterPath="$PROJECT_DIR$/SyntaxAnalyse.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/LexAnalyse.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/LexAnalyse.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/SyntaxAnalyse.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/SyntaxAnalyse.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/cmake_clean.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/depend.internal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/objects.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/objects1.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Compiler.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Compiler.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Compiler.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Compiler.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Compiler.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/分析表.txt" beforeDir="false" afterPath="$PROJECT_DIR$/分析表.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/简化文法.txt" beforeDir="false" afterPath="$PROJECT_DIR$/简化文法(2).txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,42 +42,42 @@
     <session id="1169539658">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.8" value="5" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="10" />
-          <entry key="h" value="11" />
-          <entry key="txt" value="24" />
+          <entry key="cpp" value="20" />
+          <entry key="h" value="20" />
+          <entry key="txt" value="34" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CMakeLists.txt" value="2" />
-          <entry key="ObjectiveC" value="21" />
-          <entry key="PLAIN_TEXT" value="22" />
+          <entry key="CMakeLists.txt" value="5" />
+          <entry key="ObjectiveC" value="40" />
+          <entry key="PLAIN_TEXT" value="29" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="3828" />
-          <entry key="h" value="1583" />
+          <entry key="cpp" value="5208" />
+          <entry key="h" value="1943" />
           <entry key="mm" value="7" />
-          <entry key="txt" value="570" />
+          <entry key="txt" value="742" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="5418" />
-          <entry key="PLAIN_TEXT" value="570" />
+          <entry key="ObjectiveC" value="7158" />
+          <entry key="PLAIN_TEXT" value="742" />
         </counts>
       </usages-collector>
     </session>
@@ -95,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SyntaxAnalyse.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1613">
-              <caret line="552" column="5" lean-forward="true" selection-start-line="552" selection-start-column="5" selection-end-line="552" selection-end-column="5" />
+            <state relative-caret-position="360">
+              <caret line="42" column="10" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -111,39 +103,40 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SyntaxAnalyse.h">
+        <entry file="file://$PROJECT_DIR$/分析表.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="25" column="30" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="30" />
+            <state relative-caret-position="1160">
+              <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LexAnalyse.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
               <folding>
-                <element signature="e#116#133#0" expanded="true" />
+                <element signature="e#48#66#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.cpp">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
-              <folding>
-                <element signature="e#55#74#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="80">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SemanticAnalyse.cpp">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SemanticAnalyse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+            <state relative-caret-position="313">
+              <caret line="40" column="11" lean-forward="true" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
               <folding>
                 <element signature="e#120#137#0" expanded="true" />
               </folding>
@@ -154,35 +147,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LexAnalyse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="18" column="8" lean-forward="true" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+            <state relative-caret-position="337">
+              <caret line="24" column="2" lean-forward="true" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LexAnalyse.cpp">
+        <entry file="file://$PROJECT_DIR$/SyntaxAnalyse.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="453">
+              <caret line="55" column="27" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
+              <folding>
+                <element signature="e#116#133#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+        <entry file="file://$PROJECT_DIR$/SemanticAnalyse.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-column="36" />
+            <state relative-caret-position="200">
+              <caret line="10" selection-start-line="10" selection-end-line="14" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/分析表.txt">
+        <entry file="file://D:/QQ缓存/1309879183/FileRecv/LexAnalyse(1).cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="84" selection-start-line="2" selection-start-column="84" selection-end-line="2" selection-end-column="84" />
+            <state relative-caret-position="1300">
+              <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -200,6 +196,9 @@
       <find>Equal</find>
       <find>&lt;opt&gt;</find>
       <find>re</find>
+      <find>ParseExpre</find>
+      <find>ParseRel</find>
+      <find>void</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -217,12 +216,15 @@
         <option value="$PROJECT_DIR$/LexCompiler.h" />
         <option value="$PROJECT_DIR$/分析表(3).txt" />
         <option value="$PROJECT_DIR$/分析表(2).txt" />
-        <option value="$PROJECT_DIR$/SyntaxAnalyse.cpp" />
-        <option value="$PROJECT_DIR$/SyntaxAnalyse.h" />
-        <option value="$PROJECT_DIR$/分析表.txt" />
-        <option value="$PROJECT_DIR$/LexAnalyse.h" />
-        <option value="$PROJECT_DIR$/SemanticAnalyse.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/LexAnalyse.h" />
+        <option value="$PROJECT_DIR$/LexAnalyse.cpp" />
+        <option value="$PROJECT_DIR$/SemanticAnalyse.cpp" />
+        <option value="$PROJECT_DIR$/SyntaxAnalyse.h" />
+        <option value="$PROJECT_DIR$/SyntaxAnalyse.cpp" />
+        <option value="$PROJECT_DIR$/分析表.txt" />
+        <option value="$PROJECT_DIR$/SemanticAnalyse.h" />
       </list>
     </option>
   </component>
@@ -234,10 +236,10 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
+    <option name="x" value="147" />
     <option name="y" value="-10" />
     <option name="width" value="1235" />
-    <option name="height" value="1040" />
+    <option name="height" value="1030" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -260,7 +262,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.cpp&#10;cur&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="AST&#9;null&#9;null&#10;ParseElse&#9;null&#9;null&#10;ParseRel&#9;null&#9;null&#10;ParseExpre&#9;null&#9;null&#10;ParsePro&#9;null&#9;null&#10;cur&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -318,7 +320,8 @@
       <workItem from="1543465676655" duration="216000" />
       <workItem from="1543477041922" duration="3196000" />
       <workItem from="1543561635425" duration="9547000" />
-      <workItem from="1543729067952" duration="271000" />
+      <workItem from="1543729067952" duration="12513000" />
+      <workItem from="1543840291351" duration="509000" />
     </task>
     <task id="LOCAL-00001" summary="1. 实现了除 scanf printf 之外的所有语法分析子函数&#10;2. 细分 &lt;关键字&gt; &lt;操作符&gt; &lt;界符&gt; 等作为终结字符，修改 Type 的内容。&#10;3. 更新了 Select 集">
       <created>1543414459497</created>
@@ -327,31 +330,37 @@
       <option name="project" value="LOCAL" />
       <updated>1543414459497</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="1. 实现了所有语法分析子函数，存在 bug&#10;2. 定义了树节点，节点详细信息在 SemanticAnalyse.h 里&#10;3. Type 类型加入 None，表示非终结字符节点（在 AST 中）">
+      <created>1543729372522</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1543729372522</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41995000" />
+    <option name="totallyTimeSpent" value="54746000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22587131" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22453083" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3323782" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32719547" />
+      <window_info anchor="bottom" id="Messages" order="8" visible="true" weight="0.32719547" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3281471" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.3281471" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="11" visible="true" weight="0.32719547" />
       <window_info anchor="bottom" id="CMake" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -403,7 +412,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1. 实现了除 scanf printf 之外的所有语法分析子函数&#10;2. 细分 &lt;关键字&gt; &lt;操作符&gt; &lt;界符&gt; 等作为终结字符，修改 Type 的内容。&#10;3. 更新了 Select 集" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 实现了除 scanf printf 之外的所有语法分析子函数&#10;2. 细分 &lt;关键字&gt; &lt;操作符&gt; &lt;界符&gt; 等作为终结字符，修改 Type 的内容。&#10;3. 更新了 Select 集" />
+    <MESSAGE value="1. 实现了所有语法分析子函数，存在 bug&#10;2. 定义了树节点，节点详细信息在 SemanticAnalyse.h 里&#10;3. Type 类型加入 None，表示非终结字符节点（在 AST 中）" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 实现了所有语法分析子函数，存在 bug&#10;2. 定义了树节点，节点详细信息在 SemanticAnalyse.h 里&#10;3. Type 类型加入 None，表示非终结字符节点（在 AST 中）" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
@@ -420,10 +430,67 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/简化文法.txt" />
+    <entry file="file://$USER_HOME$/Desktop/Compiler/SyntaxAnalyse.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-175" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Compiler/SyntaxAnalyse.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="233" column="4" selection-start-line="233" selection-start-column="4" selection-end-line="245" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Compiler/SemanticAnalyse.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="15" selection-start-line="15" selection-end-line="21" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/单词对照表.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="40">
           <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#55#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/QQ缓存/1309879183/FileRecv/SyntaxAnalyse.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/QQ缓存/1309879183/FileRecv/LexAnalyse.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/QQ缓存/1309879183/FileRecv/LexAnalyse(1).cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1300">
+          <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -436,66 +503,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/分析表.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="84" selection-start-line="2" selection-start-column="84" selection-end-line="2" selection-end-column="84" />
+        <state relative-caret-position="1160">
+          <caret line="58" column="9" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SemanticAnalyse.cpp">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/SyntaxAnalyse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="25" column="30" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="30" />
+        <state relative-caret-position="453">
+          <caret line="55" column="27" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
           <folding>
             <element signature="e#116#133#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/LexAnalyse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="36" />
+        <state relative-caret-position="337">
+          <caret line="24" column="2" lean-forward="true" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LexAnalyse.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LexAnalyse.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="18" column="8" lean-forward="true" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="100">
+          <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
           <folding>
-            <element signature="e#55#74#0" expanded="true" />
+            <element signature="e#48#66#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SemanticAnalyse.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" selection-start-line="10" selection-end-line="14" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SyntaxAnalyse.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1613">
-          <caret line="552" column="5" lean-forward="true" selection-start-line="552" selection-start-column="5" selection-end-line="552" selection-end-column="5" />
+        <state relative-caret-position="360">
+          <caret line="42" column="10" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SemanticAnalyse.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+        <state relative-caret-position="313">
+          <caret line="40" column="11" lean-forward="true" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
           <folding>
             <element signature="e#120#137#0" expanded="true" />
           </folding>

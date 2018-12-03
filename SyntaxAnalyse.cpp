@@ -6,13 +6,42 @@
 
 
 // 匹配一个终结符
-void SyntaxAnalyse::MatchToken(Type expect) {
+AbstractSyntaxTreeNode* SyntaxAnalyse::MatchToken(Type expect,bool flag) {
     Type lexType = lex[cur].type;
     if (lexType != expect) {
         SyntaxError();
-    } else {
-        cur++;
     }
+    if(flag)
+    {
+        if(symbolTable.query(lex[cur].value))
+        {
+            SyntaxError();
+        }
+        else
+        {
+            symbolTable.insert(lex[cur].value,depth);
+        }
+    }
+    else
+    {
+        if(!symbolTable.query(lex[cur].value))
+        {
+            SyntaxError();
+        }
+    }
+    if(lexType == RightBrace)
+    {
+        symbolTable.del(depth);
+        depth--;
+    }
+    if(lexType == LeftBrace)
+    {
+        depth++;
+    }
+    auto *node = new AbstractSyntaxTreeNode;
+    node->node = lex[cur];
+    cur++;
+    return node;
 }
 
 // 语法分析错误
@@ -21,27 +50,32 @@ void SyntaxAnalyse::SyntaxError() {
     exit(1);
 }
 
-void SyntaxAnalyse::ParseProgram() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseProgram() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "Program";
     switch (lex[cur].type) {
         case MainKey:
-            MatchToken(MainKey);
-            MatchToken(LeftParentheses);
-            MatchToken(RightParentheses);
-            MatchToken(LeftBrace);
-            ParseDeclarationSequence();
-            ParseStatementSequence();
-            MatchToken(RightBrace);
+            root->child[root->num++] = MatchToken(MainKey, false);
+            root->child[root->num++] = MatchToken(LeftParentheses, false);
+            root->child[root->num++] = MatchToken(RightParentheses, false);
+            root->child[root->num++] = MatchToken(LeftBrace, false);
+            root->child[root->num++] = ParseDeclarationSequence();
+            root->child[root->num++] = ParseStatementSequence();
+            root->child[root->num++] = MatchToken(RightBrace, false);
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseDeclarationSequence() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseDeclarationSequence() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "DeclarationSequence";
     switch (lex[cur].type) {
         case IntKey:
-            ParseDeclarationStatement();
-            ParseDeclarationSequence();
+            root->child[root->num++] = ParseDeclarationStatement();
+            root->child[root->num++] = ParseDeclarationSequence();
             break;
         case RightBrace:
         case IfKey:
@@ -55,46 +89,58 @@ void SyntaxAnalyse::ParseDeclarationSequence() {
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseDeclarationStatement() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseDeclarationStatement() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "DeclarationStatement";
     switch (lex[cur].type) {
         case IntKey:
-            MatchToken(IntKey);
-            ParseIdentifierTable();
-            MatchToken(Semicolon);
+            root->child[root->num++] = MatchToken(IntKey, false);
+            root->child[root->num++] = ParseIdentifierTable();
+            root->child[root->num++] = MatchToken(Semicolon, false);
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseIdentifierTable() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseIdentifierTable() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "IdentifierTable";
     switch (lex[cur].type) {
         case Identifier:
-            MatchToken(Identifier);
-            ParseIdentifierTableS();
+            root->child[root->num++] = MatchToken(Identifier, true);
+            root->child[root->num++] = ParseIdentifierTableS();
             break;
         default:
             SyntaxError();
             break;
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseIdentifierTableS() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseIdentifierTableS() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "IdentifierTableS";
     switch (lex[cur].type) {
         case Comma:
-            MatchToken(Comma);
-            ParseIdentifierTable();
+            root->child[root->num++] = MatchToken(Comma, false);
+            root->child[root->num++] = ParseIdentifierTable();
             break;
         case Semicolon:
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseStatementSequence() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseStatementSequence() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "StatementSequence";
     switch (lex[cur].type) {
         case IfKey:
         case WhileKey:
@@ -103,9 +149,81 @@ void SyntaxAnalyse::ParseStatementSequence() {
         case PrintfKey:
         case LeftBrace:
         case Identifier:
-            ParseSentence();
-            ParseStatementSequence();
+            root->child[root->num++] = ParseSentence();
+            root->child[root->num++] = ParseStatementSequence();
             break;
+        case RightBrace:
+            break;
+        default:
+            SyntaxError();
+    }
+    return root;
+}
+
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseSentence() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "Sentence";
+    switch (lex[cur].type) {
+        case IfKey:
+            root->child[root->num++] = ParseIfSentence();
+            break;
+        case WhileKey:
+            root->child[root->num++] = ParseWhileSentence();
+            break;
+        case ForKey:
+            root->child[root->num++] = ParseForSentence();
+            break;
+        case ScanfKey:
+            root->child[root->num++] = ParseScanfSentence();
+            break;
+        case PrintfKey:
+            root->child[root->num++] = ParsePrintfSentence();
+            break;
+        case LeftBrace:
+            root->child[root->num++] = ParseCompoundStatement();
+            break;
+        case Identifier:
+        case Number:
+        case LeftParentheses:
+            root->child[root->num++] = ParseAssignmentStatement();
+            break;
+        default:
+            SyntaxError();
+    }
+    return root;
+}
+
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseIfSentence() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "IfSentence";
+    switch (lex[cur].type) {
+        case IfKey:
+            root->child[root->num++] = MatchToken(IfKey, false);
+            root->child[root->num++] = MatchToken(LeftParentheses, false);
+            root->child[root->num++] = ParseExpression();
+            root->child[root->num++] = MatchToken(RightParentheses, false);
+            root->child[root->num++] = ParseCompoundStatement();
+            root->child[root->num++] = ParseElseSentence();
+            break;
+        default:
+            SyntaxError();
+    }
+    return root;
+}
+
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseElseSentence() {
+    switch (lex[cur].type) {
+        case ElseKey:
+            MatchToken(ElseKey, false);
+            ParseCompoundStatement();
+            break;
+        case ForKey:
+        case WhileKey:
+        case Identifier:
+        case IfKey:
+        case PrintfKey:
+        case ScanfKey:
+        case LeftBrace:
         case RightBrace:
             break;
         default:
@@ -113,137 +231,95 @@ void SyntaxAnalyse::ParseStatementSequence() {
     }
 }
 
-void SyntaxAnalyse::ParseSentence() {
-    switch (lex[cur].type) {
-        case IfKey:
-            ParseIfSentence();
-            break;
-        case WhileKey:
-            ParseWhileSentence();
-            break;
-        case ForKey:
-            ParseForSentence();
-            break;
-        case ScanfKey:
-            ParseScanfSentence();
-            break;
-        case PrintfKey:
-            ParsePrintfSentence();
-            break;
-        case LeftBrace:
-            ParseCompoundStatement();
-            break;
-        case Identifier:
-        case Number:
-        case LeftParentheses:
-            ParseAssignmentStatement();
-            break;
-        default:
-            SyntaxError();
-    }
-}
 
-void SyntaxAnalyse::ParseIfSentence() {
-    switch (lex[cur].type) {
-        case IfKey:
-            MatchToken(IfKey);
-            MatchToken(LeftParentheses);
-            ParseExpression();
-            MatchToken(RightParentheses);
-            ParseCompoundStatement();
-            ParseElseSentence();
-            break;
-        default:
-            SyntaxError();
-    }
-}
-
-void SyntaxAnalyse::ParseElseSentence() {
-    switch (lex[cur].type) {
-        case ElseKey:
-            MatchToken(ElseKey);
-            ParseCompoundStatement();
-            break;
-        case Semicolon:
-            break;
-        default:
-            SyntaxError();
-    }
-}
-
-void SyntaxAnalyse::ParseWhileSentence() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseWhileSentence() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "WhileSentence";
     switch (lex[cur].type) {
         case WhileKey:
-            MatchToken(WhileKey);
-            MatchToken(LeftParentheses);
-            ParseExpression();
-            MatchToken(RightParentheses);
-            ParseCompoundStatement();
+            root->child[root->num++] = MatchToken(WhileKey, false);
+            root->child[root->num++] = MatchToken(LeftParentheses, false);
+            root->child[root->num++] = ParseExpression();
+            root->child[root->num++] = MatchToken(RightParentheses, false);
+            root->child[root->num++] = ParseCompoundStatement();
             break;
         default:
             SyntaxError();
     }
 }
 
-void SyntaxAnalyse::ParseForSentence() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseForSentence() {
+    auto root = new AbstractSyntaxTreeNode;
     switch (lex[cur].type) {
         case ForKey:
-            MatchToken(ForKey);
-            MatchToken(LeftParentheses);
-            ParseExpression();
-            MatchToken(Semicolon);
-            ParseExpression();
-            MatchToken(Semicolon);
-            ParseExpression();
-            MatchToken(RightParentheses);
-            ParseCompoundStatement();
+            root->child[root->num++] = MatchToken(ForKey, false);
+            root->child[root->num++] = MatchToken(LeftParentheses, false);
+            root->child[root->num++] = ParseExpression();
+            root->child[root->num++] = MatchToken(Semicolon, false);
+            root->child[root->num++] = ParseExpression();
+            root->child[root->num++] = MatchToken(Semicolon, false);
+            root->child[root->num++] = ParseExpression();
+            root->child[root->num++] = MatchToken(RightParentheses, false);
+            root->child[root->num++] = ParseCompoundStatement();
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseCompoundStatement() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseCompoundStatement() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "CompoundStatement";
     switch (lex[cur].type) {
         case LeftBrace:
-            MatchToken(LeftBrace);
-            ParseStatementSequence();
-            MatchToken(RightBrace);
+            root->child[root->num++] = MatchToken(LeftBrace, false);
+            root->child[root->num++] = ParseStatementSequence();
+            root->child[root->num++] = MatchToken(RightBrace, false);
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseAssignmentStatement() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseAssignmentStatement() {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "AssignmentStatement";
     switch (lex[cur].type) {
         case Identifier:
         case Number:
         case LeftParentheses:
-            ParseExpression();
-            MatchToken(Semicolon);
+            root->child[root->num++] = ParseExpression();
+            root->child[root->num++] = MatchToken(Semicolon, false);
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseExpression() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseExpression() {
+    AbstractSyntaxTreeNode *root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Expression";
     switch (lex[cur].type) {
         case Identifier:
-            MatchToken(Identifier);
-            ParseExpressionS();
+            root ->child[root ->num++] =  MatchToken(Identifier, false);
+            root -> child[root -> num++] =  ParseExpressionS();
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseExpressionS() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseExpressionS() {
+    AbstractSyntaxTreeNode *root = new AbstractSyntaxTreeNode;
+    root -> node.value = "ExpressionS";
     switch (lex[cur].type) {
         case Assignment:
-            MatchToken(Assignment);
-            ParseArithmeticExpression();
+            root -> child[root -> num++] = MatchToken(Assignment, false);
+            root -> child[root -> num++] = ParseArithmeticExpression();
             break;
         case GreaterThan:
         case LessThan:
@@ -253,13 +329,16 @@ void SyntaxAnalyse::ParseExpressionS() {
         case Unequal:
         case Semicolon:
         case RightParentheses:
-            ParseRel();
+            root -> child[root -> num++] = ParseRel();
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseRel() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseRel() {
+    AbstractSyntaxTreeNode* root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Rel";
     switch (lex[cur].type) {
         case Add:
         case Subtract:
@@ -269,11 +348,11 @@ void SyntaxAnalyse::ParseRel() {
         case GreaterThan:
         case NoGreaterThan:
         case NoLessThan:
-        case Equal:
+        case Equal:break;
         case Unequal:
-            ParseOpt();
-            ParseRelationOperator();
-            ParseArithmeticExpression();
+            root -> child[root -> num++] = ParseOpt();
+            root -> child[root -> num++] = ParseRelationOperator();
+            root -> child[root -> num++] = ParseArithmeticExpression();
             break;
         case Semicolon:
         case RightParentheses:
@@ -281,25 +360,28 @@ void SyntaxAnalyse::ParseRel() {
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseOpt() {
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseOpt() {
+    AbstractSyntaxTreeNode* root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Opt";
     switch (lex[cur].type) {
         case Add:
-            MatchToken(Add);
-            ParseArithmeticExpression();
+            root ->child[root -> num++] = MatchToken(Add, false);
+            root ->child[root -> num++] = ParseArithmeticExpression();
             break;
         case Subtract:
-            MatchToken(Subtract);
-            ParseArithmeticExpression();
+            root -> child[root -> num++] = MatchToken(Subtract, false);
+            root -> child[root -> num++] = ParseArithmeticExpression();
             break;
         case Multiply:
-            MatchToken(Multiply);
-            ParseArithmeticExpression();
+            root ->child[root -> num++] = MatchToken(Multiply, false);
+            root ->child[root -> num++] = ParseArithmeticExpression();
             break;
         case Divide:
-            MatchToken(Divide);
-            ParseArithmeticExpression();
+            root -> child[root -> num++] = MatchToken(Divide, false);
+            root -> child[root -> num++] = ParseArithmeticExpression();
             break;
         case GreaterThan:
         case LessThan:
@@ -311,67 +393,76 @@ void SyntaxAnalyse::ParseOpt() {
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseRelationOperator()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseRelationOperator()
 {
+    AbstractSyntaxTreeNode *root = new AbstractSyntaxTreeNode;
+    root -> node.value = "RelationOperator";
     switch (lex[cur].type)
     {
         case GreaterThan:
-            MatchToken(GreaterThan);
+            root -> child[root -> num++] = MatchToken(GreaterThan, false);
             break;
         case LessThan:
-            MatchToken(LessThan);
+            root -> child[root -> num++] = MatchToken(LessThan, false);
             break;
         case NoLessThan:
-            MatchToken(NoLessThan);
+            root -> child[root -> num++] = MatchToken(NoLessThan, false);
             break;
         case NoGreaterThan:
-            MatchToken(NoGreaterThan);
+            root -> child[root -> num++] = MatchToken(NoGreaterThan, false);
             break;
         case Unequal:
-            MatchToken(Unequal);
+            root -> child[root -> num++] = MatchToken(Unequal, false);
             break;
         case Equal:
-            MatchToken(Equal);
+            root -> child[root -> num++] = MatchToken(Equal, false);
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseArithmeticExpression()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseArithmeticExpression()
 {
+    AbstractSyntaxTreeNode *root = new AbstractSyntaxTreeNode;
+    root -> node.value = "ArithmeticExpression";
     switch (lex[cur].type)
     {
         case Identifier:
-            ParseTerm();
-            ParseOparit();
+            root -> child[root -> num++] = ParseTerm();
+            root -> child[root -> num++] = ParseOparit();
             break;
         case Number:
-            ParseTerm();
-            ParseOparit();
+            root -> child[root -> num++] = ParseTerm();
+            root -> child[root -> num++] = ParseOparit();
             break;
         case LeftParentheses:
-            ParseTerm();
-            ParseOparit();
+            root -> child[root -> num++] = ParseTerm();
+            root -> child[root -> num++] = ParseOparit();
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseOparit()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseOparit()
 {
+    AbstractSyntaxTreeNode* root = new AbstractSyntaxTreeNode;
+    root -> node.value= "Oparit";
     switch (lex[cur].type)
     {
         case Add:
-            MatchToken(Add);
-            ParseArithmeticExpression();
+            root -> child[root -> num++] = MatchToken(Add, false);
+            root -> child[root -> num++] = ParseArithmeticExpression();
             break;
         case Subtract:
-            MatchToken(Subtract);
-            ParseArithmeticExpression();
+            root -> child[root -> num++] = MatchToken(Subtract, false);
+            root -> child[root -> num++] = ParseArithmeticExpression();
             break;
         case LessThan:break;
         case GreaterThan:break;
@@ -384,40 +475,46 @@ void SyntaxAnalyse::ParseOparit()
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseTerm()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseTerm()
 {
+    AbstractSyntaxTreeNode* root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Term";
     switch (lex[cur].type)
     {
         case Identifier:
-            ParseFactor();
-            ParseOpterm();
+            root -> child[root -> num++] = ParseFactor();
+            root -> child[root -> num++] = ParseOpterm();
             break;
         case Number:
-            ParseFactor();
-            ParseOpterm();
+            root -> child[root -> num++] = ParseFactor();
+            root -> child[root -> num++] = ParseOpterm();
             break;
         case LeftParentheses:
-            ParseFactor();
-            ParseOpterm();
+            root -> child[root -> num++] = ParseFactor();
+            root -> child[root -> num++] = ParseOpterm();
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseOpterm()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseOpterm()
 {
+    AbstractSyntaxTreeNode* root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Opterm";
     switch (lex[cur].type)
     {
         case Multiply:
-            MatchToken(Multiply);
-            ParseTerm();
+            root -> child[root -> num++] = MatchToken(Multiply, false);
+            root -> child[root -> num++] = ParseTerm();
             break;
         case Divide:
-            MatchToken(Divide);
-            ParseTerm();
+            root -> child[root -> num++] = MatchToken(Divide, false);
+            root -> child[root -> num++] = ParseTerm();
             break;
         case Add:break;
         case Subtract:break;
@@ -432,131 +529,159 @@ void SyntaxAnalyse::ParseOpterm()
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseFactor()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseFactor()
 {
+    AbstractSyntaxTreeNode* root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Factor";
     switch (lex[cur].type)
     {
         case Identifier:
-            MatchToken(Identifier);
+            root -> child[root -> num++] = MatchToken(Identifier, false);
             break;
         case Number:
-            MatchToken(Number);
+            root -> child[root -> num++] = MatchToken(Number, false);
             break;
         case LeftParentheses:
-            MatchToken(LeftParentheses);
-            ParseArithmeticExpression();
-            MatchToken(RightParentheses);
+            root -> child[root -> num++] = MatchToken(LeftParentheses, false);
+            root -> child[root -> num++] = ParseArithmeticExpression();
+            root -> child[root -> num++] = MatchToken(RightParentheses, false);
             break;
         default:
             SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseScanfSentence()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseScanfSentence()
 {
+    auto root = new AbstractSyntaxTreeNode;
+    root->node.value = "ScanfSentence";
     switch (lex[cur].type)
     {
         case ScanfKey:
-            MatchToken(ScanfKey);
-            MatchToken(LeftParentheses);
-            MatchToken(Quotation);
-            ParseScan();
-            MatchToken(RightParentheses);
-            MatchToken(Semicolon);
+            root -> child[root -> num++] = MatchToken(ScanfKey, false);
+            root -> child[root -> num++] = MatchToken(LeftParentheses, false);
+            root -> child[root -> num++] = MatchToken(Quotation, false);
+            root -> child[root -> num++] = ParseScan();
+            root -> child[root -> num++] = MatchToken(RightParentheses, false);
+            root -> child[root -> num++] = MatchToken(Semicolon, false);
             break;
         default:SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseScan()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseScan()
 {
+    AbstractSyntaxTreeNode* root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Scan";
     switch (lex[cur].type)
     {
         case Format:
-            MatchToken(Format);
-            ParseScans();
-            MatchToken(Address);
-            MatchToken(Identifier);
+            root -> child[root -> num++] = MatchToken(Format, false);
+            root -> child[root -> num++] = ParseScans();
+            root -> child[root -> num++] = MatchToken(Address, false);
+            root -> child[root -> num++] = MatchToken(Identifier, false);
             break;
         default:SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParseScans()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParseScans()
 {
+    AbstractSyntaxTreeNode* root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Scans";
     switch (lex[cur].type)
     {
         case Format:
-            MatchToken(Format);
-            ParseScans();
-            MatchToken(Address);
-            MatchToken(Identifier);
+            root -> child[root -> num++] = MatchToken(Format, false);
+            root -> child[root -> num++] = ParseScans();
+            root -> child[root -> num++] = MatchToken(Address, false);
+            root -> child[root -> num++] = MatchToken(Identifier, false);
             break;
         case Quotation:
-            MatchToken(Quotation);
+            root -> child[root -> num++] = MatchToken(Quotation, false);
             break;
         default:SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParsePrintfSentence()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParsePrintfSentence()
 {
+    AbstractSyntaxTreeNode *root = new AbstractSyntaxTreeNode;
+    root -> node.value = "PrintfSentence";
     switch (lex[cur].type)
     {
         case PrintfKey:
-            MatchToken(PrintfKey);
-            MatchToken(LeftParentheses);
-            MatchToken(Quotation);
-            ParsePrints();
-            MatchToken(RightParentheses);
-            MatchToken(Semicolon);
+            root -> child[root -> num++] = MatchToken(PrintfKey, false);
+            root -> child[root -> num++] = MatchToken(LeftParentheses, false);
+            root -> child[root -> num++] = MatchToken(Quotation, false);
+            root -> child[root -> num++] = ParsePrints();
+            root -> child[root -> num++] = MatchToken(RightParentheses, false);
+            root -> child[root -> num++] = MatchToken(Semicolon, false);
             break;
         default:SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParsePrints()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParsePrints()
 {
+    AbstractSyntaxTreeNode *root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Prints";
     switch (lex[cur].type)
     {
         case String:
-            MatchToken(String);
-            ParsePrints();
+            root -> child[root -> num++] = MatchToken(String, false);
+            root -> child[root -> num++] = ParsePrints();
             break;
         case Format:
-            MatchToken(Format);
-            ParsePrin();
-            MatchToken(Identifier);
+            root -> child[root -> num++] = MatchToken(Format, false);
+            root -> child[root -> num++] = ParsePrin();
+            root -> child[root -> num++] = MatchToken(Identifier, false);
             break;
         case Quotation:
-            MatchToken(Quotation);
+            root -> child[root -> num++] = MatchToken(Quotation, false);
             break;
         default:SyntaxError();
     }
+    return root;
 }
 
-void SyntaxAnalyse::ParsePrin()
+AbstractSyntaxTreeNode* SyntaxAnalyse::ParsePrin()
 {
+    AbstractSyntaxTreeNode *root = new AbstractSyntaxTreeNode;
+    root -> node.value = "Prin";
     switch (lex[cur].type)
     {
         case Format:
-            MatchToken(Format);
-            ParsePrin();
-            MatchToken(Identifier);
+            root -> child[root -> num++] = MatchToken(Format, false);
+            root -> child[root -> num++] = ParsePrin();
+            root -> child[root -> num++] = MatchToken(Identifier, false);
             break;
         case Quotation:
-            MatchToken(Quotation);
+            root -> child[root -> num++] = MatchToken(Quotation, false);
             break;
         default:SyntaxError();
     }
+    return root;
 }
+
 
 void SyntaxAnalyse::Parse(Node *node) {
     this->lex = node;
     cur = 0;
+    depth = 0;
     ParseProgram();
+}
+
+void SyntaxAnalyse::ShowTree(AbstractSyntaxTreeNode *root) {
+
 }
 
 

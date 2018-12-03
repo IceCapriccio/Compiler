@@ -26,7 +26,9 @@ struct Node {
 
 
 class LexAnalyse {
-
+public:
+    void panduan(std::string s);
+    struct Node* MorAnalysis();
 };
 
 

@@ -9,45 +9,48 @@
 #include <stdio.h>
 #include <cstdlib>
 #include "LexAnalyse.h"
+#include "SemanticAnalyse.h"
 
 using namespace std;
 
 class SyntaxAnalyse {
 private:
     Node *lex;
-    int cur;
+    int cur, depth;
+    SymbolTable symbolTable;
 
-    void MatchToken(Type expect);
     void SyntaxError();
-    void ParseProgram();
-    void ParseDeclarationSequence();
-    void ParseDeclarationStatement();
-    void ParseIdentifierTable();
-    void ParseIdentifierTableS();
-    void ParseStatementSequence();
-    void ParseSentence();
-    void ParseIfSentence();
-    void ParseElseSentence();
-    void ParseWhileSentence();
-    void ParseForSentence();
-    void ParseCompoundStatement();
-    void ParseAssignmentStatement();
-    void ParseExpression();
-    void ParseExpressionS();
-    void ParseRel();
-    void ParseOpt();
-    void ParseRelationOperator();
-    void ParseArithmeticExpression();
-    void ParseOparit();
-    void ParseTerm();
-    void ParseOpterm();
-    void ParseFactor();
-    void ParseScanfSentence();
-    void ParseScan();
-    void ParseScans();
-    void ParsePrintfSentence();
-    void ParsePrints();
-    void ParsePrin();
+    void ShowTree(AbstractSyntaxTreeNode *root);
+    AbstractSyntaxTreeNode* MatchToken(Type expect, bool flag);
+    AbstractSyntaxTreeNode* ParseProgram();
+    AbstractSyntaxTreeNode* ParseDeclarationSequence();
+    AbstractSyntaxTreeNode* ParseDeclarationStatement();
+    AbstractSyntaxTreeNode* ParseIdentifierTable();
+    AbstractSyntaxTreeNode* ParseIdentifierTableS();
+    AbstractSyntaxTreeNode* ParseStatementSequence();
+    AbstractSyntaxTreeNode* ParseSentence();
+    AbstractSyntaxTreeNode* ParseIfSentence();
+    AbstractSyntaxTreeNode* ParseElseSentence();
+    AbstractSyntaxTreeNode* ParseWhileSentence();
+    AbstractSyntaxTreeNode* ParseForSentence();
+    AbstractSyntaxTreeNode* ParseCompoundStatement();
+    AbstractSyntaxTreeNode* ParseAssignmentStatement();
+    AbstractSyntaxTreeNode* ParseExpression();
+    AbstractSyntaxTreeNode* ParseExpressionS();
+    AbstractSyntaxTreeNode* ParseRel();
+    AbstractSyntaxTreeNode* ParseOpt();
+    AbstractSyntaxTreeNode* ParseRelationOperator();
+    AbstractSyntaxTreeNode* ParseArithmeticExpression();
+    AbstractSyntaxTreeNode* ParseOparit();
+    AbstractSyntaxTreeNode* ParseTerm();
+    AbstractSyntaxTreeNode* ParseOpterm();
+    AbstractSyntaxTreeNode* ParseFactor();
+    AbstractSyntaxTreeNode* ParseScanfSentence();
+    AbstractSyntaxTreeNode* ParseScan();
+    AbstractSyntaxTreeNode* ParseScans();
+    AbstractSyntaxTreeNode* ParsePrintfSentence();
+    AbstractSyntaxTreeNode* ParsePrints();
+    AbstractSyntaxTreeNode* ParsePrin();
 
 public:
     void Parse(Node node[]);
