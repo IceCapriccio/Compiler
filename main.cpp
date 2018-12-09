@@ -18,5 +18,6 @@ int main() {
 //    freopen("CON", "w", stdout);
     CodeSequence codeSequence = visitor.Visit(root);
     codeSequence.show();
+    // new line
     return 0;
 }

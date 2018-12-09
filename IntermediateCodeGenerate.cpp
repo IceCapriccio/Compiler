@@ -130,11 +130,7 @@ CodeSequence Visitor::VisitIfSentence(AbstractSyntaxTreeNode *root, int IfSenten
         total++;
         code.push_back(ElseCode);
     } else { // ElseSentence -> null
-        supportTable.LabelAssign(Expression_false, total + 1); // 直接到 IfSentence.next :
-        codeTerm = CodeTerm(DefLabel, -1, -1, Expression_false);
-        code.push_back(codeTerm); // {expression.false :}
-        total++;
-        code.push_back(ElseCode);
+        supportTable.LabelAssign(Expression_false, total);
     }
     // IfSentence.code = Expression.code || "Expression.true :" || CompoundStatement.code ||
     //                   "Expression.false: " || ElseSentence.code
@@ -159,12 +155,23 @@ CodeSequence Visitor::VisitSentence(AbstractSyntaxTreeNode *root) {
     if (root->child[0]->info.value == "IfSentence") { // Sentence -> IfSentence
         IfCode = VisitIfSentence(root->child[0], next);
         code.push_back(IfCode);
+        supportTable.LabelAssign(next, total);
+        CodeTerm codeTerm(DefLabel, -1, -1, next);
+        code.push_back(codeTerm);
+        total++;
     } else if (root->child[0]->info.value == "WhileSentence") { // Sentence -> WhileSentence
         WhileCode = VisitWhileSentence(root->child[0], next);
         code.push_back(WhileCode);
+        supportTable.LabelAssign(next, total);
+        CodeTerm codeTerm(DefLabel, -1, -1, next);
+        code.push_back(codeTerm);
+        total++;
     } else if (root->child[0]->info.value == "ForSentence") { // Sentence -> ForSentence
         ForCode = VisitForSentence(root->child[0], next);
         code.push_back(ForCode);
+        CodeTerm codeTerm(DefLabel, -1, -1, next);
+        code.push_back(codeTerm);
+        total++;
     } else if (root->child[0]->info.value == "ScanfSentence") { // Sentence -> ScanfSentence
         ScanfCode = VisitScanfSentence(root->child[0]);
         code.push_back(ScanfCode);
@@ -180,7 +187,6 @@ CodeSequence Visitor::VisitSentence(AbstractSyntaxTreeNode *root) {
         AssignCode = VisitAssignmentStatement(root->child[0], -1, -1);
         code.push_back(AssignCode);
     }
-    supportTable.LabelAssign(next, total);
     return code;
 }
 
@@ -217,6 +223,12 @@ CodeSequence Visitor::VisitForSentence(AbstractSyntaxTreeNode *root, int ForSent
     // child[1] = (
     Exp1Code = VisitExpression(root->child[2], -1, -1);
     code.push_back(Exp1Code);
+    if(Exp1Code.getOp() == Assignment && Exp1Code.getParam1() && Exp1Code.getParam2())
+    {
+        CodeTerm codeTerm1(Exp1Code.getOp(),Exp1Code.getParam2(),-1,Exp1Code.getParam1());
+        code.push_back(codeTerm1);
+        total++;
+    }
     int expression2_true = supportTable.NewLabel();
     int expression2_false = ForSentence_next;
     // child[3] = ;
@@ -234,6 +246,12 @@ CodeSequence Visitor::VisitForSentence(AbstractSyntaxTreeNode *root, int ForSent
     // child[8] = CompoundStatement
     Exp3Code = VisitExpression(root->child[6], -1, -1);
     code.push_back(Exp3Code);
+    if(Exp3Code.getOp() == Assignment && Exp3Code.getParam1() && Exp3Code.getParam2())
+    {
+        CodeTerm codeTerm1(Exp3Code.getOp(),Exp3Code.getParam2(),-1,Exp3Code.getParam1());
+        code.push_back(codeTerm1);
+        total++;
+    }
     return code;
 }
 
@@ -299,12 +317,15 @@ CodeSequence Visitor::VisitExpression(AbstractSyntaxTreeNode *node,int Expressio
     //}
     if(code.getParam1() != -1 && code.getParam2() != -1 && code.getOp() != Number)
     {
-        int dest = supportTable.NewLabel();
-        CodeTerm codeTerm(code.getOp(),code.getParam1(),code.getParam2(),dest);
-        code.setParam1(dest);
-        total++;
-        code.push_back(codeTerm);
-        code.setParam2(-1);
+        if(code.getOp() != Assignment)
+        {
+            int dest = supportTable.NewLabel();
+            CodeTerm codeTerm(code.getOp(),code.getParam1(),code.getParam2(),dest);
+            code.setParam1(dest);
+            total++;
+            code.push_back(codeTerm);
+            code.setParam2(-1);
+        }
     }
     if(ExpressionS.getParam3() != -1 && ExpressionS.getOp1() != None)
     {
@@ -315,7 +336,7 @@ CodeSequence Visitor::VisitExpression(AbstractSyntaxTreeNode *node,int Expressio
         total++;
         if(Expression_true != -1)
         {
-            CodeTerm codeGoto(JEqual,code.getParam2(),-2,Expression_true);
+            CodeTerm codeGoto(JEqual,dest,-2,Expression_true);
             total++;
             code.push_back(codeGoto);
             CodeTerm codeFalse(Goto,-1,-1,Expression_false);
@@ -634,8 +655,9 @@ void CodeSequence::show() {
     cout << "SymbolTable:" << endl;
     SyntaxAnalyse::symbolTable.show();
     cout << "TAC:" << endl;
-    for (auto term : code) {
-        term.show();
+    for (int i = 0; i < code.size(); i++) {
+        printf("%2d ", i);
+        code[i].show();
     }
 }
 

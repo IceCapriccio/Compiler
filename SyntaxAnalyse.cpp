@@ -249,6 +249,7 @@ AbstractSyntaxTreeNode* SyntaxAnalyse::ParseWhileSentence() {
 
 AbstractSyntaxTreeNode* SyntaxAnalyse::ParseForSentence() {
     auto root = new AbstractSyntaxTreeNode;
+    root->info.value = "ForSentence";
     switch (lex[cur].type) {
         case ForKey:
             root->child[root->childNum++] = MatchToken(ForKey, false);
