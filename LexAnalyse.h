@@ -5,17 +5,26 @@
 #ifndef COMPILER_LEXCOMPILER_H
 #define COMPILER_LEXCOMPILER_H
 
-//TODO 语法分析体现多态 https://www.cnblogs.com/gaofei-1/p/6435442.html
-
 #include <string>
 
 enum Type {
+    //标识符
     Identifier,
+    //数字
     Number,
+    //关键字
     MainKey, IfKey, WhileKey, ForKey, ScanfKey, PrintfKey, ElseKey, IntKey,
-    LeftParentheses, RightParentheses, LeftBrace, RightBrace, Comma, Semicolon, Quotation, // 逗号 分号 引号
+    //界符
+    LeftParentheses, RightParentheses, LeftBrace, RightBrace, Comma, Semicolon, Quotation,
+    //运算符
     Equal, Unequal, Assignment, LessThan, GreaterThan, NoLessThan, NoGreaterThan, Add, Subtract, Multiply, Divide,
-    Format,Address,String,
+    //条件转移
+    JEqual,JUnequal,JLessThan,JGreaterThan,JNoLessThan,JNoGreaterThan,
+    //无条件转移
+    Goto,
+    //定义标签
+    DefLabel,
+    //空
     None
 };
 
@@ -28,7 +37,7 @@ struct Node {
 class LexAnalyse {
 public:
     void panduan(std::string s);
-    struct Node* MorAnalysis();
+    struct Node* LexAnalysis();
 };
 
 

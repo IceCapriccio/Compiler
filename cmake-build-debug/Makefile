@@ -122,6 +122,33 @@ Compiler/fast:
 	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/build
 .PHONY : Compiler/fast
 
+IntermediateCodeGenerate.obj: IntermediateCodeGenerate.cpp.obj
+
+.PHONY : IntermediateCodeGenerate.obj
+
+# target to build an object file
+IntermediateCodeGenerate.cpp.obj:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/IntermediateCodeGenerate.cpp.obj
+.PHONY : IntermediateCodeGenerate.cpp.obj
+
+IntermediateCodeGenerate.i: IntermediateCodeGenerate.cpp.i
+
+.PHONY : IntermediateCodeGenerate.i
+
+# target to preprocess a source file
+IntermediateCodeGenerate.cpp.i:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/IntermediateCodeGenerate.cpp.i
+.PHONY : IntermediateCodeGenerate.cpp.i
+
+IntermediateCodeGenerate.s: IntermediateCodeGenerate.cpp.s
+
+.PHONY : IntermediateCodeGenerate.s
+
+# target to generate assembly for a file
+IntermediateCodeGenerate.cpp.s:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/IntermediateCodeGenerate.cpp.s
+.PHONY : IntermediateCodeGenerate.cpp.s
+
 LexAnalyse.obj: LexAnalyse.cpp.obj
 
 .PHONY : LexAnalyse.obj
@@ -239,6 +266,9 @@ help:
 	@echo ... Compiler
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... IntermediateCodeGenerate.obj
+	@echo ... IntermediateCodeGenerate.i
+	@echo ... IntermediateCodeGenerate.s
 	@echo ... LexAnalyse.obj
 	@echo ... LexAnalyse.i
 	@echo ... LexAnalyse.s

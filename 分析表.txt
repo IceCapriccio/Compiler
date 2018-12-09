@@ -1,58 +1,74 @@
 select(<program>→<mainkey>(){<declarative_sequence><statement_sequence>}) = {main}
+{Program.code = DeclarationSequence.code}
 
 select(<declarative_sequence>→<declarative_statement><declarative_sequence>) = {int}
 
-select(<declarative_sequence>→null) = {},if,while,for,scanf,printf,{,identifier}
+select(<declarative_sequence>→null) = {},if,while,for,scanf,printf,{,letter}
 
 select(<declarative_statement>→<intkey><identifier_table>;) = {int}
 
-select(<identifier_table>→<identifier><identifier_table_second>) = {identier}
+select(<identifier_table>→<identifier><idts>) = {letter}
 
-select(<identifier_table_second>→,<identifier_table>) = {,}
+select(<idts>→,<identifier_table>) = {","}
 
-select(<identifier_table_second> -> null) = {;}
+select(<idts> -> null) = {;}
 
-select(<statement_sequence>→<sentence><statement_sequence>) = {if,while,for,scanf,print,{,number}
+select(<statement_sequence>→<sentence><statement_sequence>) = {if,while,for,scanf,print,{,letter}
+{StatementSequence.code = Sentence.code || StatementSequence.code}
 
 select(<statement_sequence> → null) = {}}
+{}
 
 select(<sentence>→<if_sentence>) = {if}
+{sentence.code = IfSentence.code}
 
 select(<sentence>→<while_sentence>) = {while}
 
 select(<sentence>→<for_sentence>) = {for}
+{sentence.code = ForSentence.code}
 
 select(<sentence>→<scanf_sentence>) = {scanf}
+{sentence.code = ScanfSentence.code}
 
 select(<sentence>→<printf_sentence>) = {printf}
+{sentence.code = PrintfSentence.code}
 
 select(<sentence>→<compound_statement>) = {{}
+{sentence.code = CompoundStatement.code}
 
-select(<sentence>→<assignment_statement>) = {id,number,(}
+select(<sentence>→<assignment_statement>) = {id,unint,(}
+{sentence.code = AssignmentStatement.code}
 
-select(<if_sentence>→<ifkey> (<expression>)<compound_statement><else_sentence>) = {if}
+select(<if_sentence>→<ifkey> (
+{expression.true = NewLabel() expression.false = NewLabel()}<expression>)
+<compound_statement><elses>;
+{IfSentence.code = expression.code || "expression.true :" || CompoundStatement.code ||
+                   "expression.false :" || ElseSentence.code}
+) = {if}
 
-select(<else_sentence>→<eleskey><compound_statement>) = {else}
+select(<elses>→<eleskey><compound_statement>) = {else}
 
-select(<elses>→null) = {},for,while,if,scanf,prinf,{,id}
+select(<elses>→null) = {},for,while,if,scanf,printf,{,id}
 
-select(<while_sentence>→<whilekey> (<expression>)<compound_statement>) = {while}
+select(<while_sentence>→<whilekey> (
+{expression.true = NewLabel(); expression.false = WhileSentence.next}<expression>)
+<compound_statement>
+{WhileSentence.code = expression.code || "expression.true :" || CompoundStatement}
+;) = {while}
 
-select(<for_sentence>→<forkey> (<expression>;<expression>;<expression>) <compound_statement>) = {for}
+select(<for_sentence>→<forkey> (<expression>;<expression>;<expression>) <compound_statement>;) = {for}
 
 select(<compound_statement>→{<statement_sequence>}) = {{}
 
-select(<assignment_statement>→<expression>;) = {identifier,unint,(}
+select(<assignment_statement>→<expression>;) = {id,number,(}
 
-select(<expression>→<identifier><expression_s>) = {id}
+select(<expression>→<identifier><exps>) = {id}
 
-select(<expression_s>→=<arithmetic_expression>) = {=}
+select(<exps>→=<arithmetic_expression>) = {=}
 
-select(<expression_s>→<rel>) = {>,<,>=,<=,==,!=,;,)}
+select(<exps>→<rel>) = {+,-,*,/,>=,<=>,<,==,!=,;,)}
 
 select(<rel>→<opt><relational_operator><arithmetic_expression>) = {+,-,*,/,>,<,>=,<=,==,!=}
-
-select(<rel>→null)={;,)}
 
 select(<opt>→+<arithmetic_expression>) = {+}
 
@@ -62,8 +78,10 @@ select(<opt>→*<term>) = {*}
 
 select(<opt>→/<term>) = {/}
 
-select(<opt>→null) = {<,>,<=,>=,!=,==};
--------------------------------------------------
+select(<opt>→null) = {<,>,<=,>=,!=,==}
+
+select(<rel>→null)={';',)}
+--------------------------------------------------------------------------------------------------
 
 select(<relational_operator>→>)={>}
 
@@ -89,7 +107,7 @@ select(<relational_operator>→!=)={!=}
 
 //select(<eq>→null)={id,unint,(}
 
-select(<arithmetic_expression>→<term><oparit>)={id,unint,(}
+select(<arithmetic_expression>→<term><oparit>)={id,number,(}
 
 select(<oparit>→+<arithmetic_expression>)={+}
 
@@ -97,7 +115,7 @@ select(<oparit>→-<arithmetic_expression>)={-}
 
 select(<oparit>→null)={<,>,<=,>=,!=,==,),;}
 
-select(<term>→<factor><opterm>)={id,unint,(}
+select(<term>→<factor><opterm>)={id,number,(}
 
 select(<opterm>→*<term>) = {*}
 
@@ -107,27 +125,11 @@ select(<opterm>→null) = {+,-,<,>,=,!,;,)}
 
 select(<factor>→<identifier>) = {id}
 
-select(<factor>→<unint>)={unint}
+select(<factor>→<unint>)={number}
 
 select(<factor>→(<arithmetic_expression>)) = {(}
 ------------------------------------
 
-select(<scanf_sentence>→<scanfkey>("<scan>);)={scanf}
+select(<scanf_sentence>→<scanfkey>(id);)={scanf}
 
-select(<scan>→%d<scans>&<identifier>)={%}
-
-select(<scans>→%d<scans>&<identifier>,)={%}
-
-select(<scans>→")={"}
-
-select(<printf_sentence>→<printfkey>("<prints>);)={printf}
-
-select(<prints>→<char><prints>)={任意字符}
-
-select(<prints>→%d<prin>&<identifier>)={%}
-
-select(<prints>→")={"}
-
-select(<prin>→%d<prin>&<identifier>,)={%}
-
-select(<prin>→")={"}
+select(<printf_sentence>→<printfkey>(id);)={printf}

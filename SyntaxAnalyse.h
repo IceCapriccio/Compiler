@@ -17,10 +17,8 @@ class SyntaxAnalyse {
 private:
     Node *lex;
     int cur, depth;
-    SymbolTable symbolTable;
 
     void SyntaxError();
-    void ShowTree(AbstractSyntaxTreeNode *root);
     AbstractSyntaxTreeNode* MatchToken(Type expect, bool flag);
     AbstractSyntaxTreeNode* ParseProgram();
     AbstractSyntaxTreeNode* ParseDeclarationSequence();
@@ -46,14 +44,14 @@ private:
     AbstractSyntaxTreeNode* ParseOpterm();
     AbstractSyntaxTreeNode* ParseFactor();
     AbstractSyntaxTreeNode* ParseScanfSentence();
-    AbstractSyntaxTreeNode* ParseScan();
-    AbstractSyntaxTreeNode* ParseScans();
     AbstractSyntaxTreeNode* ParsePrintfSentence();
-    AbstractSyntaxTreeNode* ParsePrints();
-    AbstractSyntaxTreeNode* ParsePrin();
 
 public:
-    void Parse(Node node[]);
+    static SymbolTable symbolTable;
+
+    SyntaxAnalyse();
+    AbstractSyntaxTreeNode* Parse(Node node[]);
+    void ShowTree(AbstractSyntaxTreeNode *root, int depth);
 };
 
 

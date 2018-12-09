@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/IceCapriccio/CLionProjects/Compiler/IntermediateCodeGenerate.cpp">
+			<Option target="Compiler"/>
+		</Unit>
+		<Unit filename="C:/Users/IceCapriccio/CLionProjects/Compiler/IntermediateCodeGenerate.h">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.cpp">
 			<Option target="Compiler"/>
 		</Unit>

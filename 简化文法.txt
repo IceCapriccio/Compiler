@@ -14,7 +14,7 @@
 
 |<coms>|<asst>
 
-7.(1) <ifs>→<ifkey> (<exp>)<coms><elses>;
+7.(1) <ifs>→<ifkey> (<exp>)<coms><elses>
 
 (2)<elses>→<eleskey><coms>|null
 
@@ -65,20 +65,6 @@
 
 27. <intkey>→int
 
-28. <scanfs>→<scanfkey>("<scan>);
+28. <scanfs>→<scanfkey>(id);
 
-29. <scanfkey>→scanf
-
-30. <scan>→%d<scans>&<id>
-
-31. <scans>→%d<scans>&<id>,|"| <scans>
-
-32. <printfs>→<printfkey>("<prints>);
-
-33. <printfkey>→printf
-
-34. <prints>→<char><prints>|%d<prin>&<id>|"
-
-35. <prin>→%d<prin>&<id>,|"
-
-36. <char>→任意字符
+29. <printfkey>→<printfkey>(id);

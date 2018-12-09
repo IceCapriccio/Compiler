@@ -6,13 +6,23 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/IceCapriccio/CLionProjects/Compiler/IntermediateCodeGenerate.cpp
+iostream
+-
+IntermediateCodeGenerate.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/IntermediateCodeGenerate.h
+SyntaxAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.h
+
+C:/Users/IceCapriccio/CLionProjects/Compiler/IntermediateCodeGenerate.h
+map
+-
+SemanticAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/SemanticAnalyse.h
+
 C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
 string
 -
-
-C:/Users/IceCapriccio/CLionProjects/Compiler/SemanticAnalyse.cpp
-SemanticAnalyse.h
-C:/Users/IceCapriccio/CLionProjects/Compiler/SemanticAnalyse.h
 
 C:/Users/IceCapriccio/CLionProjects/Compiler/SemanticAnalyse.h
 string
@@ -21,4 +31,20 @@ LexAnalyse.h
 C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
 vector
 -
+
+C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.cpp
+SyntaxAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.h
+
+C:/Users/IceCapriccio/CLionProjects/Compiler/SyntaxAnalyse.h
+string
+-
+stdio.h
+-
+cstdlib
+-
+LexAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/LexAnalyse.h
+SemanticAnalyse.h
+C:/Users/IceCapriccio/CLionProjects/Compiler/SemanticAnalyse.h
 
