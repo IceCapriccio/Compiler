@@ -2,9 +2,7 @@
 // Created by IceCapriccio on 2018/12/3.
 //
 
-#include <iostream>
 #include "IntermediateCodeGenerate.h"
-#include "SyntaxAnalyse.h"
 
 SymbolTable SyntaxAnalyse::symbolTable;
 SupportTable supportTable;
@@ -14,6 +12,26 @@ string name[] = {"Identifier","Number","MainKey","IfKey","WhileKey","ForKey","Sc
 
 CodeTerm::CodeTerm(Type op, int param1, int param2, int dest)
     : op(op), param1(param1), param2(param2), dest(dest) {
+}
+
+Type CodeTerm::getOp()
+{
+    return op;
+}
+
+int CodeTerm::getParam1()
+{
+    return param1;
+}
+
+int CodeTerm::getParam2()
+{
+    return param2;
+}
+
+int CodeTerm::getDest()
+{
+    return dest;
 }
 
 void CodeTerm::show() {

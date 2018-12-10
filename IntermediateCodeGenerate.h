@@ -5,6 +5,8 @@
 #ifndef COMPILER_INTERMEDITECODEGENERATE_H
 #define COMPILER_INTERMEDITECODEGENERATE_H
 
+#include <iostream>
+#include "SyntaxAnalyse.h"
 #include <map>
 #include "SemanticAnalyse.h"
 
@@ -15,6 +17,10 @@ private:
 public:
     Type type;
     CodeTerm(Type op, int param1, int param2, int dest);
+    Type getOp();
+    int getParam1();
+    int getParam2();
+    int getDest();
     void show();
 };
 
