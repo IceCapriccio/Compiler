@@ -249,10 +249,15 @@ CodeSequence Visitor::VisitForSentence(AbstractSyntaxTreeNode *root, int ForSent
     }
     int expression2_true = supportTable.NewLabel();
     int expression2_false = ForSentence_next;
+    int expression2_begin = supportTable.NewLabel();
+    supportTable.LabelAssign(expression2_begin, total);
+    CodeTerm codeTerm(DefLabel, -1, -1, expression2_begin);
+    code.push_back(codeTerm);
+    total++;
     // child[3] = ;
     Exp2Code = VisitExpression(root->child[4], expression2_true, expression2_false);
     code.push_back(Exp2Code);
-    CodeTerm codeTerm = CodeTerm(DefLabel, -1, -1, expression2_true);
+    codeTerm = CodeTerm(DefLabel, -1, -1, expression2_true);
     supportTable.LabelAssign(expression2_true, total);
     code.push_back(codeTerm);
     total++;
@@ -270,6 +275,7 @@ CodeSequence Visitor::VisitForSentence(AbstractSyntaxTreeNode *root, int ForSent
         code.push_back(codeTerm1);
         total++;
     }
+    codeTerm = CodeTerm(Goto, -1, -1, expression2_begin);
     return code;
 }
 
