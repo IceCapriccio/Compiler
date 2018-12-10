@@ -187,6 +187,7 @@ CodeSequence Visitor::VisitSentence(AbstractSyntaxTreeNode *root) {
     } else if (root->child[0]->info.value == "ForSentence") { // Sentence -> ForSentence
         ForCode = VisitForSentence(root->child[0], next);
         code.push_back(ForCode);
+        supportTable.LabelAssign(next, total);
         CodeTerm codeTerm(DefLabel, -1, -1, next);
         code.push_back(codeTerm);
         total++;
@@ -276,6 +277,8 @@ CodeSequence Visitor::VisitForSentence(AbstractSyntaxTreeNode *root, int ForSent
         total++;
     }
     codeTerm = CodeTerm(Goto, -1, -1, expression2_begin);
+    code.push_back(codeTerm);
+    total++;
     return code;
 }
 
